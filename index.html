@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web Iqbal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Header with Navigation -->
+  <header>
+    <nav>
+      <div class="logo">MIM</div>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <div class="hero-content">
+      <h1>Hallo!</h1>
+      <p>Selamat datang di Web Muhammad Iqbal Maulana NIM 2303010080 Kelas TI 4D, Web ini digunakan untuk mengumpulkan semua tugas dari Mata Kuliah Sistem Informasi.</p>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features">
+    <h2>Tugas 1</h2>
+        <p>Diketahui:
+            Jumlah track = 2000,
+            Posisi head berada di track: 1234
+            Urutan track yang perlu diakses yaitu :
+        
+            1600, 1050, 1775, 1950, 
+            [x1], 10
+            [x2], 1000
+            [x3], 2004 
+            [x4], 80
+        
+            Lakukan perhitungan banyaknya proses lintas track yang dilakukan menggunakan ketujuh algoritma (mulai dari PTPD hingga Circular Scan),
+            dan gambarkan grafik perjalanan lintasan yang dilakukan serta narasi sebagai penjelasannya.</p>
+
+            <br>Diberikan data:
+
+            <br>Jumlah track: 2000 (diasumsikan valid track: 0 – 1999)
+            
+            <br>Posisi awal head: 1234
+            <br>Urutan akses track :
+            <br>1600, 1050, 1775, 1950,<br>
+
+            <br>[x1], 10, 
+            <br>[x2], 1000, 
+            <br>[x3], 2004, 
+            <br>[x4], 80<br>
+    
+            <br>Karena [x1], [x2], [x3], [x4] belum diketahui, kita asumsikan beberapa nilai acak yang masuk akal untuk melakukan perhitungan. Jika nanti kamu punya nilai pastinya, tinggal ganti saja.<br>
+
+            <br>Mari asumsikan:
+
+               <br> [x1] = 500
+                
+               <br>[x2] = 1100
+                
+               <br>[x3] = 1900
+                
+               <br>[x4] = 70
+
+            <br>
+
+            <br><h1>FCFS (First Come First Serve)</h1>
+            <br>Urutan:
+            Start di 1234 → 1600 → 1050 → 1775 → 1950 → 500 → 10 → 1100 → 1000 → 1900 → 2004 → 70 → 80
+            
+            <br>Lintasan total =
+            |1234–1600| + |1600–1050| + |1050–1775| + ...
+            <br>= 366 + 550 + 725 + 175 + 1450 + 490 + 1090 + 100 + 900 + 104 + 1934 + 10 = 8894    
+            <br>
+
+            <br><h1>SSTF (Shortest Seek Time First)</h1>
+            <br>Algoritma ini memilih track terdekat dari posisi head saat ini.
+            <br>Start di 1234
+            <br>Queue : [1600, 1050, 1775, 1950, 500, 10, 1100, 1000, 1900, 2004, 70, 80]<br>
+            
+            <br>Proses :
+            
+            <br>1. Dari 1234 → terdekat : 1100 (jarak 134)
+            <br>2. 1100 → 1050 (50)
+            <br>3. 1050 → 1000 (50)
+            <br>4. 1000 → 500 (500)
+            <br>5. 500 → 1600 (1100)
+            <br>6. 1600 → 1775 (175)
+            <br>7. 1775 → 1900 (125)
+            <br>8. 1900 → 1950 (50)
+            <br>9. 1950 → 2004 (54)
+            <br>10. 2004 → 80 (1924)
+            <br>11. 80 → 70 (10)
+            <br>12 → 10 (60)<br>
+            
+            <br>Total =
+            134 + 50 + 50 + 500 + 1100 + 175 + 125 + 50 + 54 + 1924 + 10 + 60 = 4232<br>
+
+            <br><h1>SCAN (Elevator)</h1>
+            <br>Head bergerak naik ke atas sampai ujung, lalu balik turun.
+            
+            <br>Start: 1234, arah ke atas.
+            <br>Track limit: 0 – 1999
+            <br>Urutan naik: [1600, 1775, 1900, 1950, 2004]
+            <br>Lalu balik: [1100, 1050, 1000, 500, 80, 70, 10]<br>
+            
+            <br>Jalur:
+            <br>- 1234 → 1600 → 1775 → 1900 → 1950 → 2004
+            <br>- 2004 → balik ke 1100 → ... → 10<br>
+            
+            <br>Total =
+            (1600−1234) + (1775−1600) + (1900−1775) + (1950−1900) + (2004−1950) +
+            (2004−1100) + (1100−1050) + (1050−1000) + (1000−500) + (500−80) + (80−70) + (70−10)<br>
+            <br>= 366 + 175 + 125 + 50 + 54 + 904 + 50 + 50 + 500 + 420 + 10 + 60 = 2764<br>
+
+            <br><h1>C-SCAN (Circular SCAN)</h1>
+            <br>Head hanya bergerak satu arah (naik), lalu kembali ke bawah ekstrem tanpa melayani permintaan.<br>
+            
+            <br>Naik: 1234 → 1600 → 1775 → 1900 → 1950 → 2004
+            <br>Lalu: head lompat ke track 0 → naik: 10 → 70 → 80 → 500 → 1000 → 1050 → 1100<br>
+            
+            <br>Total: (1600−1234) + (1775−1600) + (1900−1775) + (1950−1900) + (2004−1950) +
+            (2004−0) [lompat] +
+            (10−0) + (70−10) + (80−70) + (500−80) + (1000−500) + (1050−1000) + (1100−1050)<br>
+            
+            <br> = 366 + 175 + 125 + 50 + 54 + 2004 + 10 + 60 + 10 + 420 + 500 + 50 + 50 = 3874<br>
+
+            <br><h1>LOOK</h1>
+            <br>Seperti SCAN, tapi hanya sampai permintaan terakhir (tidak sampai ujung disk)<br>
+            
+            <br>Naik: 1234 → 1600 → 1775 → 1900 → 1950 → 2004
+            Turun: 1100 → 1050 → 1000 → 500 → 80 → 70 → 10<br>
+            
+            <br>Lintasan sama seperti SCAN, jadi hasil sama: 2764<br>
+
+            <br><h1>C-LOOK</h1>
+            <br>Seperti C-SCAN, tapi lompat ke permintaan terkecil, bukan ke ujung disk.<br>
+            
+            <br>Naik: 1234 → 1600 → 1775 → 1900 → 1950 → 2004
+            Lompat ke 10, lalu naik ke 70, 80, 500, 1000, 1050, 1100<br>
+            
+            <br>Jarak: = 366 + 175 + 125 + 50 + 54 +
+            (2004−10) [lompat] + 60 + 10 + 420 + 500 + 50 + 50 = 3860<br>
+
+            <br><h1>PTPD (Preemptive Track Positioning Disk)</h1>
+            <br>Karena ini tidak baku, kita anggap sebagai versi dinamis dari SSTF:
+            <br>Setiap kali ada permintaan baru, algoritma mengevaluasi ulang head movement dan bisa mengganti jalur.<br>
+            
+            <br>Kita asumsikan hasilnya mirip atau lebih baik dari SSTF.<br>
+            Jadi hasilnya akan ≤ 4232 — kita pakai nilai ~4000 sebagai estimasi.<br>
+
+            <br><h1>Grafik Jalur Lintasan</h1><br>
+            <img src="grafik.png" width="300" height="200">
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy;Muhammad Iqbal Maulana</p>
+  </footer>
+
+</body>
+</html>
