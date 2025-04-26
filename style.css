@@ -81,7 +81,11 @@
   .cta-button:hover {
     background-color: #f4f4f4;
   }
-  
+
+  .responsive{
+      width: 100%;
+      height: auto:
+      
   /* Features Section */
   #features {
     padding: 3rem 2rem;
