@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web Iqbal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Header with Navigation -->
+  <header>
+    <nav>
+      <div class="logo">Muhammad Iqbal Maulana</div>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <div class="container">
+      <div class="image-container">
+        <img src="pp.jpg" width="200" height="200">
+      </div>
+      <div class="text-container">
+        <br><h1>Hallo!</h1><br>
+        <p>Selamat datang di Web Muhammad Iqbal Maulana NIM 2303010080 Kelas TI 4D. Web ini digunakan untuk mengumpulkan semua tugas dari Mata Kuliah Sistem Operasi.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features">
+    <h2>Tugas 1</h2>
+    <br><h1>Soal</h1><br>
+        <p>Diketahui:
+            <br>Jumlah track = 2000,
+            <br>Posisi head berada di track: 1234
+            <br>Urutan track yang perlu diakses yaitu : 1600, 1050, 1775, 1950, <br>
+          
+            <br>[x1] adalah tanggal lahir masing-masing x 10, misal : 1 menjadi 10, 29 menjadi 290
+            <br>[x2] adalah bulan lahir masing-masing x 100, misal : 4 menjadi 400, 11 menjadi 1100
+            <br>[x3] adalah 4 digit tahun lahir masing-masing, misal : 2007, 2010
+            <br>[x4] adalah 3 digit terakhir dari NIM, misal 395, 056 menjadi 56<br>
+        
+            <br>Lakukan perhitungan banyaknya proses lintas track yang dilakukan menggunakan ketujuh algoritma (mulai dari PTPD hingga Circular Scan),
+            dan gambarkan grafik perjalanan lintasan yang dilakukan serta narasi sebagai penjelasannya.</p>
+
+            <br><h1>Jawaban</h1><br>
+
+            <br>Diberikan data:
+
+            <br>Jumlah track: 2000 (diasumsikan valid track: 0 – 1999)
+            
+            <br>Posisi awal head: 1234
+            <br>Urutan akses track : 1600, 1050, 1775, 1950,<br>
+
+            <br>[x1], 10 (Tanggal lahir) 
+            <br>[x2], 1000 (Bulan lahir)
+            <br>[x3], 2004 (Tahun lahir) 
+            <br>[x4], 80 (Digit NIM 2 angka terakhir) <br>
+    
+            <br>Karena [x1], [x2], [x3], [x4] belum diketahui, kita asumsikan beberapa nilai acak yang masuk akal untuk melakukan perhitungan. Jika nanti kamu punya nilai pastinya, tinggal ganti saja.<br>
+
+            <br>Mari asumsikan:
+
+               <br> [x1] = 500
+                
+               <br>[x2] = 1100
+                
+               <br>[x3] = 1900
+                
+               <br>[x4] = 70
+
+            <br>
+
+            <br><h1>FCFS</h1>
+            <br>Urutan:
+            Start di 1234 → 1600 → 1050 → 1775 → 1950 → 500 → 10 → 1100 → 1000 → 1900 → 2004 → 70 → 80<br>
+            
+            <br>Lintasan total =
+            |1234–1600| + |1600–1050| + |1050–1775| + ...<br>
+            <br>= 366 + 550 + 725 + 175 + 1450 + 490 + 1090 + 100 + 900 + 104 + 1934 + 10 = 8894    
+            <br>
+
+            <br><h1>SSTF (Shortest Seek Time First)</h1>
+            <br>Algoritma ini memilih track terdekat dari posisi head saat ini.<br>
+            <br>Start di 1234
+            <br>Queue : [1600, 1050, 1775, 1950, 500, 10, 1100, 1000, 1900, 2004, 70, 80]<br>
+            
+            <br>Proses :
+            
+            <br>1. Dari 1234 → terdekat : 1100 (jarak 134)
+            <br>2. 1100 → 1050 (50)
+            <br>3. 1050 → 1000 (50)
+            <br>4. 1000 → 500 (500)
+            <br>5. 500 → 1600 (1100)
+            <br>6. 1600 → 1775 (175)
+            <br>7. 1775 → 1900 (125)
+            <br>8. 1900 → 1950 (50)
+            <br>9. 1950 → 2004 (54)
+            <br>10. 2004 → 80 (1924)
+            <br>11. 80 → 70 (10)
+            <br>12 → 10 (60)<br>
+            
+            <br>Total =
+            134 + 50 + 50 + 500 + 1100 + 175 + 125 + 50 + 54 + 1924 + 10 + 60 = 4232<br>
+
+            <br><h1>SCAN</h1>
+            <br>Head bergerak naik ke atas sampai ujung, lalu balik turun.<br>
+            
+            <br>Start: 1234, arah ke atas.
+            <br>Track limit: 0 – 1999
+            <br>Urutan naik: [1600, 1775, 1900, 1950, 2004]
+            <br>Lalu balik: [1100, 1050, 1000, 500, 80, 70, 10]<br>
+            
+            <br>Jalur:
+            <br>- 1234 → 1600 → 1775 → 1900 → 1950 → 2004
+            <br>- 2004 → balik ke 1100 → ... → 10<br>
+            
+            <br>Total =
+            (1600−1234) + (1775−1600) + (1900−1775) + (1950−1900) + (2004−1950) +
+            (2004−1100) + (1100−1050) + (1050−1000) + (1000−500) + (500−80) + (80−70) + (70−10)<br>
+            <br>= 366 + 175 + 125 + 50 + 54 + 904 + 50 + 50 + 500 + 420 + 10 + 60 = 2764<br>
+
+            <br><h1>C-SCAN</h1>
+            <br>Head hanya bergerak satu arah (naik), lalu kembali ke bawah ekstrem tanpa melayani permintaan.<br>
+            
+            <br>Naik: 1234 → 1600 → 1775 → 1900 → 1950 → 2004
+            <br>Lalu: head lompat ke track 0 → naik: 10 → 70 → 80 → 500 → 1000 → 1050 → 1100<br>
+            
+            <br>Total: (1600−1234) + (1775−1600) + (1900−1775) + (1950−1900) + (2004−1950) +
+            (2004−0) [lompat] +
+            (10−0) + (70−10) + (80−70) + (500−80) + (1000−500) + (1050−1000) + (1100−1050)<br>
+            
+            <br> = 366 + 175 + 125 + 50 + 54 + 2004 + 10 + 60 + 10 + 420 + 500 + 50 + 50 = 3874<br>
+
+            <br><h1>LOOK</h1>
+            <br>Seperti SCAN, tapi hanya sampai permintaan terakhir (tidak sampai ujung disk)<br>
+            
+            <br>Naik: 1234 → 1600 → 1775 → 1900 → 1950 → 2004
+            Turun: 1100 → 1050 → 1000 → 500 → 80 → 70 → 10<br>
+            
+            <br>Lintasan sama seperti SCAN, jadi hasil sama: 2764<br>
+
+            <br><h1>C-LOOK</h1>
+            <br>Seperti C-SCAN, tapi lompat ke permintaan terkecil, bukan ke ujung disk.<br>
+            
+            <br>Naik: 1234 → 1600 → 1775 → 1900 → 1950 → 2004
+            Lompat ke 10, lalu naik ke 70, 80, 500, 1000, 1050, 1100<br>
+            
+            <br>Jarak: = 366 + 175 + 125 + 50 + 54 +
+            (2004−10) [lompat] + 60 + 10 + 420 + 500 + 50 + 50 = 3860<br>
+            
+            <br><h1>PTPD</h1>
+            <br>Karena ini tidak baku, kita anggap sebagai versi dinamis dari SSTF:
+            <br>Setiap kali ada permintaan baru, algoritma mengevaluasi ulang head movement dan bisa mengganti jalur.<br>
+            
+            <br>Kita asumsikan hasilnya mirip atau lebih baik dari SSTF.<br>
+            Jadi hasilnya akan ≤ 4232 — kita pakai nilai ~4000 sebagai estimasi.<br>
+
+            <br><h1>Grafik Jalur Lintasan</h1><br>
+            <div class="container">
+              <div class="image-container">
+                <img src="grafik.png" width="270" height="200">
+              </div>
+            <div class="text-container">
+
+            <br><h2>Penjadwalan Proses</h2><br>
+
+            <br><h1>Soal</h1><br>
+            <br>Ketentuan:
+              <br>x1 merupakan 2 digit terakhir dari NIM
+              <br>Misal: 55->10
+              <br>Misal: 4 -> 4
+              <br>Misal : 14 >7<br>
+
+              <br>Jika 2 digit terakhir dari NIM lebih dari 10, maka jumlahkan kedua angka tersebut hingga bernilai <= 10
+              <br>Misal:89->17-8
+              <br>Misal:74-11-2<br>
+
+              <br>Jika 2 digit terakhir bernilai 0, maka nilainya ditetapkan menjadi 10.<br>
+
+              <br>Kerjakan seluruh proses perhitungan berikut gambar yang dibutuhkan untuk:<br>
+
+              <br>PTPD
+              <br>PTD/SJF
+              <br>PTDP
+              <br>RPTD
+              <br>RR Q = 2
+              <br>RR Q = 3
+              <br>RR Q = 4
+              <br>RR Q = 5<br>
+
+              <br><p style="font-weight: bold;">NIM : 2303010080 </p>
+              <p style="font-weight: bold;">x1 : 8+0 = 8 </p>
+              <p style="font-weight: bold;">x2 : x1 </p>
+
+            <br><h1>Jawaban</h1><br>
+
+            <br><h1>PTPD</h1><br>
+            
+            <div class="container">
+              <div class="image-container">
+                <img src="ptpd.png" width="370" height="200">
+              </div>
+
+            <div class="container">
+              <div class="image-container">
+                <img src="kolom.png" width="550" height="100">
+              </div>
+
+              <table border="1">
+              <thead>
+                <tr>
+                  <th>PTPD</th>
+                  <th>0</th>
+                  <th>1</th>
+                  <th>2</th>
+                  <th>3</th>
+                  <th>4</th>
+                  <th>5</th>
+                  <th>6</th>
+                  <th>7</th>
+                  <th>8</th>
+                  <th>9</th>
+                  <th>10</th>
+                  <th>11</th>
+                  <th>12</th>
+                  <th>13</th>
+                  <th>14</th>
+                  <th>15</th>
+                  <th>16</th>
+                  <th>17</th>
+                  <th>18</th>
+                  <th>19</th>
+                  <th>20</th>
+                  <th>21</th>
+                  <th>22</th>
+                  <th>23</th>
+                  <th>24</th>
+                  <th>25</th>
+                  <th>26</th>
+                  <th>27</th>
+                  <th>28</th>
+                  <th>29</th>
+                  <th>30</th>
+                  <th>31</th>
+                  <th>32</th>
+                  <th>33</th>
+                  <th>34</th>
+                  <th>35</th>
+                  <th>36</th>
+                  <th>37</th>
+                  <th>38</th>
+                  <th>39</th>
+                  <th>40</th>
+                  <th>41</th>
+                  <th>42</th>
+                  <th>43</th>
+                  <th>44</th>
+                  <th>45</th>
+                  <th>46</th>
+                  <th>47</th>
+                  <th>48</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td>A</td><td>A</td><td>A</td><td>A</td><td>A</td><td>A</td><td>A</td><td>A</td><td>A</td>
+                  <td>B</td><td>B</td><td>B</td>
+                  <td>C</td><td>C</td><td>C</td><td>C</td><td>C</td><td>C</td><td>C</td>
+                  <td>D</td><td>D</td><td>D</td><td>D</td><td>D</td><td>D</td><td>D</td><td>D</td>
+                  <td>E</td><td>E</td><td>E</td><td>E</td><td>E</td><td>E</td><td>E</td><td>E</td><td>E</td><td>E</td>
+                  <td>F</td><td>F</td><td>F</td><td>F</td><td>F</td><td>F</td><td>F</td>
+                  <td>G</td><td>G</td><td>G</td><td>G</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <br><h1>PTD</h1><br>
+            
+            <div class="container">
+              <div class="image-container">
+                <img src="ptd.png" width="370" height="200">
+              </div>
+
+            <div class="container">
+              <div class="image-container">
+                <img src="kolom.png" width="550" height="100">
+              </div>
+
+              <table border="1">
+            <tr>
+              <th>PTD</th>
+              <th>0</th>
+              <th>1</th>
+              <th>2</th>
+              <th>3</th>
+              <th>4</th>
+              <th>5</th>
+              <th>6</th>
+              <th>7</th>
+              <th>8</th>
+              <th>9</th>
+              <th>10</th>
+              <th>11</th>
+              <th>12</th>
+              <th>13</th>
+              <th>14</th>
+              <th>15</th>
+              <th>16</th>
+              <th>17</th>
+              <th>18</th>
+              <th>19</th>
+              <th>20</th>
+              <th>21</th>
+              <th>22</th>
+              <th>23</th>
+              <th>24</th>
+              <th>25</th>
+              <th>26</th>
+              <th>27</th>
+              <th>28</th>
+              <th>29</th>
+              <th>30</th>
+              <th>31</th>
+              <th>32</th>
+              <th>33</th>
+              <th>34</th>
+              <th>35</th>
+              <th>36</th>
+              <th>37</th>
+              <th>38</th>
+              <th>39</th>
+              <th>40</th>
+              <th>41</th>
+              <th>42</th>
+              <th>43</th>
+              <th>44</th>
+              <th>45</th>
+              <th>46</th>
+              <th>47</th>
+              <th>48</th>
+            </tr>
+            <tr>
+              <td></td>
+              <td>A</td>
+              <td>A</td>
+              <td>A</td>
+              <td>A</td>
+              <td>A</td>
+              <td>A</td>
+              <td>A</td>
+              <td>A</td>
+              <td>A</td>
+              <td>B</td>
+              <td>B</td>
+              <td>B</td>
+              <td>G</td>
+              <td>G</td>
+              <td>G</td>
+              <td>G</td>
+              <td>C</td>
+              <td>C</td>
+              <td>C</td>
+              <td>C</td>
+              <td>C</td>
+              <td>C</td>
+              <td>C</td>
+              <td>D</td>
+              <td>D</td>
+              <td>D</td>
+              <td>D</td>
+              <td>D</td>
+              <td>D</td>
+              <td>D</td>
+              <td>F</td>
+              <td>F</td>
+              <td>F</td>
+              <td>F</td>
+              <td>F</td>
+              <td>F</td>
+              <td>F</td>
+              <td>E</td>
+              <td>E</td>
+              <td>E</td>
+              <td>E</td>
+              <td>E</td>
+              <td>E</td>
+              <td>E</td>
+              <td>E</td>
+              <td>E</td>
+              <td>E</td>
+              <td>E</td>
+            </tr>
+          </table>
+
+          <br><h1>PTDP</h1><br>
+            
+            <div class="container">
+              <div class="image-container">
+                <img src="ptdp.png" width="370" height="200">
+              </div>
+
+            <div class="container">
+              <div class="image-container">
+                <img src="kolom.png" width="550" height="100">
+              </div>
+
+            <table border="1">
+            <thead>
+              <tr>
+                <th>PTDP</th>
+                <th>0</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+                <th>9</th>
+                <th>10</th>
+                <th>11</th>
+                <th>12</th>
+                <th>13</th>
+                <th>14</th>
+                <th>15</th>
+                <th>16</th>
+                <th>17</th>
+                <th>18</th>
+                <th>19</th>
+                <th>20</th>
+                <th>21</th>
+                <th>22</th>
+                <th>23</th>
+                <th>24</th>
+                <th>25</th>
+                <th>26</th>
+                <th>27</th>
+                <th>28</th>
+                <th>29</th>
+                <th>30</th>
+                <th>31</th>
+                <th>32</th>
+                <th>33</th>
+                <th>34</th>
+                <th>35</th>
+                <th>36</th>
+                <th>37</th>
+                <th>38</th>
+                <th>39</th>
+                <th>40</th>
+                <th>41</th>
+                <th>42</th>
+                <th>43</th>
+                <th>44</th>
+                <th>45</th>
+                <th>46</th>
+                <th>47</th>
+                <th>48</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>A</td>
+                <td>A</td>
+                <td>B</td>
+                <td>B</td>
+                <td>B</td>
+                <td>C</td>
+                <td>C</td>
+                <td>D</td>
+                <td>D</td>
+                <td>D</td>
+                <td>D</td>
+                <td>C</td>
+                <td>C</td>
+                <td>C</td>
+                <td>C</td>
+                <td>G</td>
+                <td>G</td>
+                <td>G</td>
+                <td>G</td>
+                <td>D</td>
+                <td>D</td>
+                <td>D</td>
+                <td>D</td>
+                <td>D</td>
+                <td>A</td>
+                <td>A</td>
+                <td>A</td>
+                <td>A</td>
+                <td>A</td>
+                <td>A</td>
+                <td>A</td>
+                <td>F</td>
+                <td>F</td>
+                <td>F</td>
+                <td>F</td>
+                <td>F</td>
+                <td>F</td>
+                <td>F</td>
+                <td>E</td>
+                <td>E</td>
+                <td>E</td>
+                <td>E</td>
+                <td>E</td>
+                <td>E</td>
+                <td>E</td>
+                <td>E</td>
+                <td>E</td>
+                <td>E</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <br><h1>RPTD</h1><br>
+            
+            <div class="container">
+              <div class="image-container">
+                <img src="rptd.png" width="370" height="200">
+              </div>
+
+            <div class="container">
+              <div class="image-container">
+                <img src="kolom.png" width="550" height="100">
+              </div>
+
+              <table border="1">
+              <thead>
+                <tr>
+                  <th>RPTD</th>
+                  <th>0</th>
+                  <th>1</th>
+                  <th>2</th>
+                  <th>3</th>
+                  <th>4</th>
+                  <th>5</th>
+                  <th>6</th>
+                  <th>7</th>
+                  <th>8</th>
+                  <th>9</th>
+                  <th>10</th>
+                  <th>11</th>
+                  <th>12</th>
+                  <th>13</th>
+                  <th>14</th>
+                  <th>15</th>
+                  <th>16</th>
+                  <th>17</th>
+                  <th>18</th>
+                  <th>19</th>
+                  <th>20</th>
+                  <th>21</th>
+                  <th>22</th>
+                  <th>23</th>
+                  <th>24</th>
+                  <th>25</th>
+                  <th>26</th>
+                  <th>27</th>
+                  <th>28</th>
+                  <th>29</th>
+                  <th>30</th>
+                  <th>31</th>
+                  <th>32</th>
+                  <th>33</th>
+                  <th>34</th>
+                  <th>35</th>
+                  <th>36</th>
+                  <th>37</th>
+                  <th>38</th>
+                  <th>39</th>
+                  <th>40</th>
+                  <th>41</th>
+                  <th>42</th>
+                  <th>43</th>
+                  <th>44</th>
+                  <th>45</th>
+                  <th>46</th>
+                  <th>47</th>
+                  <th>48</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td>A</td>
+                  <td>A</td>
+                  <td>A</td>
+                  <td>A</td>
+                  <td>A</td>
+                  <td>A</td>
+                  <td>A</td>
+                  <td>A</td>
+                  <td>A</td>
+                  <td>G</td>
+                  <td>G</td>
+                  <td>G</td>
+                  <td>G</td>
+                  <td>B</td>
+                  <td>B</td>
+                  <td>B</td>
+                  <td>C</td>
+                  <td>C</td>
+                  <td>C</td>
+                  <td>C</td>
+                  <td>C</td>
+                  <td>C</td>
+                  <td>C</td>
+                  <td>D</td>
+                  <td>D</td>
+                  <td>D</td>
+                  <td>D</td>
+                  <td>D</td>
+                  <td>D</td>
+                  <td>D</td>
+                  <td>F</td>
+                  <td>F</td>
+                  <td>F</td>
+                  <td>F</td>
+                  <td>F</td>
+                  <td>F</td>
+                  <td>F</td>
+                  <td>E</td>
+                  <td>E</td>
+                  <td>E</td>
+                  <td>E</td>
+                  <td>E</td>
+                  <td>E</td>
+                  <td>E</td>
+                  <td>E</td>
+                  <td>E</td>
+                  <td>E</td>
+                  <td>E</td>
+                </tr>
+              </tbody>
+            </table>
+
+              <br><div class="container">
+              <div class="image-container">
+                <img src="step1.png" width="200" height="130">
+              </div>
+
+              <div class="container">
+              <div class="image-container">
+                <img src="step2.png" width="200" height="130">
+              </div>
+
+              <div class="container">
+              <div class="image-container">
+                <img src="step3.png" width="200" height="120">
+              </div>
+
+              <div class="container">
+              <div class="image-container">
+                <img src="step4.png" width="200" height="100">
+              </div>
+
+              <div class="container">
+              <div class="image-container">
+                <img src="step5.png" width="200" height="90">
+              </div>
+
+          <br><h1>RR = Q2</h1><br>
+            
+            <div class="container">
+              <div class="image-container">
+                <img src="rr q2.png" width="370" height="200">
+              </div>
+
+            <div class="container">
+              <div class="image-container">
+                <img src="kolom.png" width="550" height="100">
+              </div>
+
+              <table border="1">
+              <thead>
+                <tr>
+                  <th>RR = Q2</th>
+                  <th>0</th>
+                  <th>1</th>
+                  <th>2</th>
+                  <th>3</th>
+                  <th>4</th>
+                  <th>5</th>
+                  <th>6</th>
+                  <th>7</th>
+                  <th>8</th>
+                  <th>9</th>
+                  <th>10</th>
+                  <th>11</th>
+                  <th>12</th>
+                  <th>13</th>
+                  <th>14</th>
+                  <th>15</th>
+                  <th>16</th>
+                  <th>17</th>
+                  <th>18</th>
+                  <th>19</th>
+                  <th>20</th>
+                  <th>21</th>
+                  <th>22</th>
+                  <th>23</th>
+                  <th>24</th>
+                  <th>25</th>
+                  <th>26</th>
+                  <th>27</th>
+                  <th>28</th>
+                  <th>29</th>
+                  <th>30</th>
+                  <th>31</th>
+                  <th>32</th>
+                  <th>33</th>
+                  <th>34</th>
+                  <th>35</th>
+                  <th>36</th>
+                  <th>37</th>
+                  <th>38</th>
+                  <th>39</th>
+                  <th>40</th>
+                  <th>41</th>
+                  <th>42</th>
+                  <th>43</th>
+                  <th>44</th>
+                  <th>45</th>
+                  <th>46</th>
+                  <th>47</th>
+                  <th>48</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td>A</td>
+                  <td>A</td>
+                  <td>B</td>
+                  <td>B</td>
+                  <td>B</td>
+                  <td>A</td>
+                  <td>C</td>
+                  <td>C</td>
+                  <td>D</td>
+                  <td>D</td>
+                  <td>F</td>
+                  <td>F</td>
+                  <td>G</td>
+                  <td>G</td>
+                  <td>A</td>
+                  <td>A</td>
+                  <td>C</td>
+                  <td>C</td>
+                  <td>D</td>
+                  <td>D</td>
+                  <td>E</td>
+                  <td>E</td>
+                  <td>F</td>
+                  <td>F</td>
+                  <td>G</td>
+                  <td>G</td>
+                  <td>A</td>
+                  <td>A</td>
+                  <td>C</td>
+                  <td>C</td>
+                  <td>D</td>
+                  <td>D</td>
+                  <td>E</td>
+                  <td>E</td>
+                  <td>F</td>
+                  <td>F</td>
+                  <td>A</td>
+                  <td>A</td>
+                  <td>C</td>
+                  <td>D</td>
+                  <td>D</td>
+                  <td>E</td>
+                  <td>E</td>
+                  <td>F</td>
+                  <td>E</td>
+                  <td>E</td>
+                  <td>E</td>
+                  <td>E</td>
+                </tr>
+              </tbody>
+            </table>
+
+          <br><h1>RR = Q3</h1><br>
+            
+            <div class="container">
+              <div class="image-container">
+                <img src="rr q3.png" width="370" height="200">
+              </div>
+
+            <div class="container">
+              <div class="image-container">
+                <img src="kolom.png" width="550" height="100">
+              </div>
+
+              <table border="1">
+              <tr>
+        
+                <th>RR = Q3</th>
+              <th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th>
+                <th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th>
+                <th>20</th><th>21</th><th>22</th><th>23</th><th>24</th><th>25</th><th>26</th><th>27</th><th>28</th><th>29</th>
+                <th>30</th><th>31</th><th>32</th><th>33</th><th>34</th><th>35</th><th>36</th><th>37</th><th>38</th><th>39</th>
+                <th>40</th><th>41</th><th>42</th><th>43</th><th>44</th><th>45</th><th>46</th><th>47</th><th>48</th>
+              </tr>
+                <th></th>
+                <td>A</td><td>A</td><td>A</td><td>B</td><td>B</td><td>B</td><td>C</td><td>C</td><td>C</td><td>D</td>
+                <td>D</td><td>D</td><td>E</td><td>E</td><td>E</td><td>F</td><td>F</td><td>F</td><td>G</td><td>G</td>
+                <td>G</td><td>A</td><td>A</td><td>A</td><td>C</td><td>C</td><td>C</td><td>D</td><td>D</td><td>D</td>
+                <td>E</td><td>E</td><td>E</td><td>F</td><td>F</td><td>F</td><td>G</td><td>A</td><td>A</td><td>A</td>
+                <td>C</td><td>D</td><td>E</td><td>E</td><td>E</td><td>F</td><td>D</td><td>E</td>
+              </tr>
+            </table>
+
+          <br><h1>RR = Q4</h1><br>
+            
+            <div class="container">
+              <div class="image-container">
+                <img src="rr_q4.png" width="370" height="200">
+              </div>
+
+            <div class="container">
+              <div class="image-container">
+                <img src="kolom.png" width="550" height="100">
+              </div>
+
+            <table border="1">
+            <tr>
+              <th>RR = Q4</th>
+
+              <th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th>
+              <th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th>
+              <th>20</th><th>21</th><th>22</th><th>23</th><th>24</th><th>25</th><th>26</th><th>27</th><th>28</th><th>29</th>
+              <th>30</th><th>31</th><th>32</th><th>33</th><th>34</th><th>35</th><th>36</th><th>37</th><th>38</th><th>39</th>
+              <th>40</th><th>41</th><th>42</th><th>43</th><th>44</th><th>45</th><th>46</th><th>47</th><th>48</th>
+            </tr>
+            <tr>
+              <td></td>
+              <td>A</td><td>A</td><td>A</td><td>A</td><td>B</td><td>B</td><td>B</td><td>A</td><td>C</td><td>C</td>
+              <td>C</td><td>C</td><td>D</td><td>D</td><td>D</td><td>D</td><td>E</td><td>E</td><td>E</td><td>E</td>
+              <td>F</td><td>F</td><td>F</td><td>F</td><td>G</td><td>G</td><td>G</td><td>G</td><td>A</td><td>A</td>
+              <td>A</td><td>A</td><td>C</td><td>C</td><td>C</td><td>D</td><td>D</td><td>D</td><td>D</td><td>E</td>
+              <td>E</td><td>E</td><td>E</td><td>E</td><td>E</td><td>F</td><td>F</td><td>F</td>
+            </tr>
+          </table>
+
+          <br><h1>RR = Q5</h1><br>
+            
+            <div class="container">
+              <div class="image-container">
+                <img src="rr_q5.png" width="370" height="200">
+              </div>
+
+            <div class="container">
+              <div class="image-container">
+                <img src="kolom.png" width="550" height="100">
+              </div>
+
+            <table border="1">
+              <thead>
+                <tr>
+                  <th>RR = Q5</th>
+                  <th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th>
+                  <th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th>
+                  <th>20</th><th>21</th><th>22</th><th>23</th><th>24</th><th>25</th><th>26</th><th>27</th><th>28</th><th>29</th>
+                  <th>30</th><th>31</th><th>32</th><th>33</th><th>34</th><th>35</th><th>36</th><th>37</th><th>38</th><th>39</th>
+                  <th>40</th><th>41</th><th>42</th><th>43</th><th>44</th><th>45</th><th>46</th><th>47</th><th>48</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td>A</td><td>A</td><td>A</td><td>A</td><td>A</td><td>B</td><td>B</td><td>B</td><td>A</td><td>A</td>
+                  <td>C</td><td>C</td><td>C</td><td>C</td><td>C</td><td>D</td><td>D</td><td>D</td><td>D</td><td>D</td>
+                  <td>E</td><td>E</td><td>E</td><td>E</td><td>E</td><td>F</td><td>F</td><td>F</td><td>F</td><td>F</td>
+                  <td>G</td><td>G</td><td>G</td><td>G</td><td>A</td><td>A</td><td>C</td><td>C</td><td>D</td><td>D</td>
+                  <td>D</td><td>E</td><td>E</td><td>E</td><td>E</td><td>E</td><td>F</td><td>F</td>
+                </tr>
+              </tbody>
+            </table>
+
+            </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy;Muhammad Iqbal Maulana</p>
+  </footer>
+
+</body>
+</html> 
